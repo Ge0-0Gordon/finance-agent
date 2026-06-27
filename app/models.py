@@ -9,6 +9,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 class RunMode(str, Enum):
     REPLAY = "replay"
+    REPLAY_LLM = "replay_llm"
     LIVE = "live"
 
 
@@ -26,6 +27,7 @@ class ResearchRunRequest(BaseModel):
     end_time: datetime
     max_events: int = Field(default=8, ge=5, le=10)
     mode: RunMode = RunMode.REPLAY
+    output_language: str = Field(default="zh-CN", min_length=2, max_length=20)
     output_formats: list[str] = Field(default_factory=lambda: ["markdown", "html"])
 
     @field_validator("output_formats")
@@ -85,9 +87,28 @@ class EventAnalysis(BaseModel):
     opportunities: list[str]
     risks: list[str]
     recommendations: list[str]
+    external_assumptions: list[str] = Field(default_factory=list)
     confidence: Confidence
     confidence_reason: str
     evidence_ids: list[str] = Field(min_length=1)
+
+    @field_validator("external_assumptions")
+    @classmethod
+    def validate_external_assumption_labels(cls, value: list[str]) -> list[str]:
+        prefix = "外部常识/待验证假设："
+        invalid = [item for item in value if not item.startswith(prefix)]
+        if invalid:
+            raise ValueError(f"external_assumptions must start with '{prefix}'")
+        return value
+
+
+class ReportSummary(BaseModel):
+    executive_summary: str
+    securities_overview: str
+    quant_overview: str
+    top_opportunities: list[str] = Field(default_factory=list)
+    top_risks: list[str] = Field(default_factory=list)
+    priority_recommendations: list[str] = Field(default_factory=list)
 
 
 class ReportArtifacts(BaseModel):

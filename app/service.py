@@ -6,12 +6,13 @@ from pathlib import Path
 from uuid import uuid4
 
 from app.config import Settings
-from app.llm_adapter import OpenAICompatibleAdapter, ReplayAnalysisAdapter
+from app.llm_adapter import AnalysisAdapter, OpenAICompatibleAdapter, ReplayAnalysisAdapter
 from app.models import ResearchRunRequest, ResearchRunResult, RunMode
 from app.workflow import build_workflow
 
 
 Observer = Callable[[str, dict], None]
+AdapterFactory = Callable[[Settings], AnalysisAdapter]
 
 
 def _noop_observer(stage: str, payload: dict) -> None:
@@ -19,8 +20,13 @@ def _noop_observer(stage: str, payload: dict) -> None:
 
 
 class ResearchService:
-    def __init__(self, settings: Settings | None = None) -> None:
+    def __init__(
+        self,
+        settings: Settings | None = None,
+        llm_adapter_factory: AdapterFactory | None = None,
+    ) -> None:
         self.settings = settings or Settings.load()
+        self.llm_adapter_factory = llm_adapter_factory or OpenAICompatibleAdapter
 
     def run(
         self,
@@ -31,7 +37,7 @@ class ResearchService:
         adapter = (
             ReplayAnalysisAdapter()
             if request.mode == RunMode.REPLAY
-            else OpenAICompatibleAdapter(self.settings)
+            else self.llm_adapter_factory(self.settings)
         )
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         run_id = f"{timestamp}-{uuid4().hex[:8]}"
@@ -61,4 +67,3 @@ class ResearchService:
             encoding="utf-8",
         )
         return result
-

@@ -21,7 +21,11 @@ with st.sidebar:
         if period == "自定义天数"
         else None
     )
-    mode_value = st.radio("数据模式", ["replay", "live"], horizontal=True)
+    mode_value = st.radio(
+        "数据模式",
+        ["replay", "replay_llm", "live"],
+        horizontal=True,
+    )
     max_events = st.slider("最大事件数", min_value=5, max_value=10, value=8)
     submitted = st.button("运行分析", type="primary", use_container_width=True)
 
@@ -63,8 +67,15 @@ if submitted:
         st.error(str(exc))
         st.stop()
 
-    if result.request.mode == RunMode.REPLAY:
-        st.warning("当前结果使用合成 Replay Demo Data，不代表真实或当前新闻。")
+    if result.request.mode in {RunMode.REPLAY, RunMode.REPLAY_LLM}:
+        st.warning(
+            "当前结果使用合成 Replay Demo Data，不代表真实或当前新闻。"
+            + (
+                " EventExtractor 与 EventAnalysis 使用真实 LLM。"
+                if result.request.mode == RunMode.REPLAY_LLM
+                else " 分析为完全离线 deterministic demo。"
+            )
+        )
 
     col1, col2, col3 = st.columns(3)
     col1.metric("采集条数", result.metrics.get("collected_count", 0))
@@ -92,4 +103,3 @@ if submitted:
     st.markdown(markdown_report)
     st.caption(f"HTML: {result.artifacts.html_report_path}")
     st.caption(f"JSON: {result.artifacts.result_json_path}")
-

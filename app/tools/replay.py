@@ -37,5 +37,4 @@ def load_replay_documents(
             )
         )
 
-    return documents, ["Replay mode uses synthetic demonstration data."]
-
+    return documents, ["Replay 模式使用 synthetic 合成演示数据。"]

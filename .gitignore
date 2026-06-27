@@ -1,9 +1,14 @@
 .env
+.env.*
+!.env.example
+*.csv
+data/
 .venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .test-tmp/
+pytest-cache-files-*/
 .ruff_cache/
 outputs/*
 !outputs/.gitkeep

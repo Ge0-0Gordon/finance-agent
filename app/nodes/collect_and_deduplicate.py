@@ -16,7 +16,7 @@ class CollectAndDeduplicateNode:
     def __call__(self, state: WorkflowState) -> dict:
         request = state["request"]
         self.observer("collect", {"status": "running"})
-        if request.mode == RunMode.REPLAY:
+        if request.mode in {RunMode.REPLAY, RunMode.REPLAY_LLM}:
             raw_documents, warnings = load_replay_documents(self.settings.replay_file, request)
         else:
             raw_documents, warnings = collect_rss_documents(
@@ -32,4 +32,3 @@ class CollectAndDeduplicateNode:
         }
         self.observer("collect", {"status": "completed", **metrics})
         return {"sources": documents, "warnings": warnings, "metrics": metrics}
-

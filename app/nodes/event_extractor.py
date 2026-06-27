@@ -14,9 +14,19 @@ class EventExtractorNode:
         self.observer("extract", {"status": "running"})
         request = state["request"]
         sources = state["sources"]
-        events = self.adapter.extract_events(request.topic, sources, request.max_events)
+        events = self.adapter.extract_events(
+            request.topic,
+            sources,
+            request.max_events,
+            request.output_language,
+        )
         if not events:
             raise ValueError("Event extraction returned no events")
+        events = sorted(
+            events,
+            key=lambda item: item.importance_score,
+            reverse=True,
+        )[: request.max_events]
         available_ids = {item.evidence_id for item in sources}
         for event in events:
             validate_evidence_ids(
@@ -28,4 +38,3 @@ class EventExtractorNode:
         metrics = dict(state.get("metrics", {}))
         metrics["event_count"] = len(events)
         return {"events": events, "metrics": metrics}
-

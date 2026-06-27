@@ -95,3 +95,17 @@
 - [x] 输出目录挂载
 - [x] 本地 Streamlit 启动验证
 - [ ] Docker 内 Streamlit 启动验证（当前机器未安装 Docker）
+
+## P0.5
+
+- [x] 阿里百炼 OpenAI-compatible 占位符配置
+- [x] `.env`、`*.csv`、`data/` ignore
+- [x] `replay_llm` 模式
+- [x] Structured output → JSON fallback
+- [x] Demo walkthrough
+- [x] P0.5 最小测试
+- [x] events 按 importance_score 降序
+- [x] 默认中文报告
+- [x] synthetic confidence 封顶 medium
+- [x] 外部常识/待验证假设强制标注
+- [x] 基于 EventAnalysis 的轻量总体摘要

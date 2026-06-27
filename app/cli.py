@@ -29,7 +29,10 @@ def _parse_since(value: str) -> timedelta:
 def run(
     topic: str = typer.Option(..., help="Research topic"),
     since: str = typer.Option("7d", help="Lookback period such as 24h or 7d"),
-    mode: RunMode = typer.Option(RunMode.REPLAY, help="replay or live"),
+    mode: RunMode = typer.Option(
+        RunMode.REPLAY,
+        help="replay, replay_llm, or live",
+    ),
     max_events: int = typer.Option(8, min=5, max=10),
 ) -> None:
     end_time = datetime.now(timezone.utc)
