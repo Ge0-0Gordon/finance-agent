@@ -1,0 +1,89 @@
+# AI Finance Research Report
+
+**研究主题：** {{ request.topic }}  
+**研究范围：** {{ request.start_time.isoformat() }} — {{ request.end_time.isoformat() }}  
+**生成时间：** {{ generated_at.isoformat() }}  
+**数据模式：** {{ request.mode.value }}
+
+{% if is_replay %}
+> **Replay Demo Data：** 本报告使用合成演示新闻，仅用于展示系统流程，不代表真实或当前新闻。
+{% endif %}
+
+> **免责声明：** 本报告是技术演示和研究辅助材料，不构成投资建议、交易信号或收益承诺。
+
+## 一、执行摘要
+
+本次运行从 {{ sources|length }} 条去重来源中识别 {{ events|length }} 个重点 AI 事件。事件按重要性排列，分析覆盖技术/产品意义、证券行业影响、量化投资影响、机会、风险和验证建议。
+
+{% if warnings %}
+### 运行提示
+{% for warning in warnings %}
+- {{ warning }}
+{% endfor %}
+{% endif %}
+
+## 二、重点事件总览
+
+| 排名 | 事件 | 类型 | 重要性 | 置信度 | 证据 |
+|---:|---|---|---:|---|---|
+{% for event in events %}
+| {{ loop.index }} | {{ event.title }} | {{ event.event_type }} | {{ "%.0f"|format(event.importance_score) }} | {{ analysis_by_event[event.event_id].confidence.value }} | {{ event.evidence_ids|join(", ") }} |
+{% endfor %}
+
+## 三、事件详细分析
+
+{% for event in events %}
+{% set analysis = analysis_by_event[event.event_id] %}
+### {{ loop.index }}. {{ event.title }}
+
+**事件摘要：** {{ event.summary }}
+
+**技术/产品摘要：** {{ analysis.tech_product_summary }}
+
+**证券行业影响：** {{ analysis.securities_impact }}
+
+**量化投资影响：** {{ analysis.quant_impact }}
+
+**机会：**
+{% for item in analysis.opportunities %}
+- {{ item }}
+{% endfor %}
+
+**风险：**
+{% for item in analysis.risks %}
+- {{ item }}
+{% endfor %}
+
+**建议与验证动作：**
+{% for item in analysis.recommendations %}
+- {{ item }}
+{% endfor %}
+
+**置信度：** {{ analysis.confidence.value }}  
+**置信度说明：** {{ analysis.confidence_reason }}  
+**证据：** {{ analysis.evidence_ids|join(", ") }}
+
+{% endfor %}
+## 四、总体影响
+
+### 证券行业
+
+这些事件共同指向更强的 AI 治理、审计、数据质量和安全要求。行业机会主要来自研究与运营效率提升，主要约束来自模型风险、合规记录和供应链验证。
+
+### 量化投资
+
+AI 工具可提升研究编排、数据治理和模型评估效率，但产品发布或基准成绩不能直接证明可交易信号或预测收益。
+
+## 五、方法与限制
+
+- 新闻经过 URL 和标题去重后再进行事件抽取。
+- 分析只允许引用本次运行中的 evidence ID。
+- 置信度描述当前证据覆盖，不代表事件真实性或投资确定性。
+- Live 模式可能受 RSS 可用性、发布时间和模型服务影响。
+
+## 六、来源索引
+
+{% for source in sources %}
+- **[{{ source.evidence_id }}] {{ source.title }}** — {{ source.source_name }}, {{ source.published_at.isoformat() }} — {{ source.url }}
+{% endfor %}
+

@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "name": "AI Finance Research Agent synthetic replay dataset",
+    "synthetic": true,
+    "description": "Fictional demonstration news. It must not be represented as current real-world reporting."
+  },
+  "items": [
+    {
+      "title": "AtlasAI releases an enterprise agent platform with audit logs",
+      "summary": "AtlasAI announced a fictional enterprise agent platform featuring tool permissions, traceable execution and audit exports for regulated teams.",
+      "url": "https://demo.local/atlasai/enterprise-agent-launch",
+      "source_name": "Demo AI Wire",
+      "published_offset_hours": 2,
+      "event_key": "enterprise-agent"
+    },
+    {
+      "title": "AtlasAI launches governed agent tools for regulated companies",
+      "summary": "The fictional AtlasAI product adds approval gates, tool access policies and execution records intended for financial and healthcare users.",
+      "url": "https://demo.local/markets/atlasai-governed-agents",
+      "source_name": "Demo Markets Daily",
+      "published_offset_hours": 3,
+      "event_key": "enterprise-agent"
+    },
+    {
+      "title": "AtlasAI releases an enterprise agent platform with audit logs",
+      "summary": "A duplicate copy of the AtlasAI announcement used to demonstrate title and URL deduplication.",
+      "url": "https://demo.local/atlasai/enterprise-agent-launch?utm_source=replay",
+      "source_name": "Demo AI Wire Mirror",
+      "published_offset_hours": 4,
+      "event_key": "enterprise-agent"
+    },
+    {
+      "title": "NovaChip unveils lower-cost inference accelerator",
+      "summary": "Fictional chip vendor NovaChip claims its NC2 accelerator reduces inference power consumption for transformer workloads.",
+      "url": "https://demo.local/chips/novachip-nc2",
+      "source_name": "Demo Compute Review",
+      "published_offset_hours": 5,
+      "event_key": "inference-chip"
+    },
+    {
+      "title": "Cloud providers plan support for NovaChip NC2 inference hardware",
+      "summary": "Two fictional cloud providers said they are evaluating NC2 instances, potentially widening access to lower-cost model inference.",
+      "url": "https://demo.local/cloud/novachip-support",
+      "source_name": "Demo Cloud Journal",
+      "published_offset_hours": 7,
+      "event_key": "inference-chip"
+    },
+    {
+      "title": "FinBench publishes an open benchmark for financial LLM evaluation",
+      "summary": "The fictional FinBench suite covers document extraction, numerical reasoning, citation accuracy and compliance-sensitive refusal behavior.",
+      "url": "https://demo.local/research/finbench-release",
+      "source_name": "Demo Research Bulletin",
+      "published_offset_hours": 8,
+      "event_key": "financial-benchmark"
+    },
+    {
+      "title": "Researchers introduce FinBench tests for financial language models",
+      "summary": "FinBench provides fictional reproducible tasks for comparing finance-focused models and includes evidence-grounding metrics.",
+      "url": "https://demo.local/quant/finbench-tests",
+      "source_name": "Demo Quant Research",
+      "published_offset_hours": 10,
+      "event_key": "financial-benchmark"
+    },
+    {
+      "title": "Market regulator proposes model-risk records for AI advisory tools",
+      "summary": "A fictional consultation proposes documentation of training data limits, human review, model changes and incident handling for AI-assisted advice.",
+      "url": "https://demo.local/regulation/ai-advisory-consultation",
+      "source_name": "Demo Regulatory Monitor",
+      "published_offset_hours": 12,
+      "event_key": "ai-regulation"
+    },
+    {
+      "title": "Proposed AI advisory rules emphasize human oversight",
+      "summary": "The fictional proposal would require firms to record material model changes and define escalation paths for customer-facing AI failures.",
+      "url": "https://demo.local/finance/ai-advisory-oversight",
+      "source_name": "Demo Finance Policy",
+      "published_offset_hours": 14,
+      "event_key": "ai-regulation"
+    },
+    {
+      "title": "VectorLake adds point-in-time controls for alternative data",
+      "summary": "The fictional data platform introduced timestamp lineage, revision history and point-in-time exports intended to reduce look-ahead bias.",
+      "url": "https://demo.local/data/vectorlake-point-in-time",
+      "source_name": "Demo Data Engineering",
+      "published_offset_hours": 18,
+      "event_key": "point-in-time-data"
+    },
+    {
+      "title": "New alternative-data tooling targets backtest leakage",
+      "summary": "VectorLake's fictional release focuses on dataset versions and historical availability timestamps for quantitative research.",
+      "url": "https://demo.local/quant/alternative-data-lineage",
+      "source_name": "Demo Quant Systems",
+      "published_offset_hours": 20,
+      "event_key": "point-in-time-data"
+    },
+    {
+      "title": "OpenShield discloses prompt-injection test suite for finance agents",
+      "summary": "The fictional OpenShield test set evaluates indirect prompt injection, unsafe tool calls and sensitive-data leakage in financial agents.",
+      "url": "https://demo.local/security/openshield-finance-agents",
+      "source_name": "Demo Security Lab",
+      "published_offset_hours": 22,
+      "event_key": "agent-security"
+    },
+    {
+      "title": "Finance agent red-team suite highlights unsafe tool-use risks",
+      "summary": "A fictional red-team report finds that poorly isolated tools can allow injected documents to influence agent actions.",
+      "url": "https://demo.local/cyber/finance-agent-red-team",
+      "source_name": "Demo Cyber Brief",
+      "published_offset_hours": 26,
+      "event_key": "agent-security"
+    },
+    {
+      "title": "BrokerLab pilots AI research copilot with mandatory citations",
+      "summary": "Fictional brokerage BrokerLab began an internal pilot that requires generated research notes to cite approved source documents.",
+      "url": "https://demo.local/brokerage/research-copilot",
+      "source_name": "Demo Securities News",
+      "published_offset_hours": 30,
+      "event_key": "broker-copilot"
+    },
+    {
+      "title": "BrokerLab tests cited AI assistant for analyst workflows",
+      "summary": "The fictional pilot measures time saved, citation coverage and analyst correction rates before broader deployment.",
+      "url": "https://demo.local/fintech/brokerlab-copilot",
+      "source_name": "Demo Fintech Review",
+      "published_offset_hours": 32,
+      "event_key": "broker-copilot"
+    }
+  ]
+}
+

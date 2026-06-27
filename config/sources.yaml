@@ -1,0 +1,22 @@
+rss:
+  enabled: true
+  timeout_seconds: 10
+  feeds:
+    - id: openai-news
+      name: OpenAI News
+      url: https://openai.com/news/rss.xml
+      enabled: true
+    - id: google-ai
+      name: Google AI Blog
+      url: https://blog.google/technology/ai/rss/
+      enabled: true
+    - id: mit-ai
+      name: MIT News AI
+      url: https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml
+      enabled: true
+
+search:
+  enabled: false
+  provider: tavily
+  max_results: 10
+
