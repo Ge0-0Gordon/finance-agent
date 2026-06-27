@@ -78,11 +78,15 @@
 
 ### 证券行业
 
-{{ summary.securities_overview }}
+{% for item in summary.securities_overview %}
+- {{ item }}
+{% endfor %}
 
 ### 量化投资
 
-{{ summary.quant_overview }}
+{% for item in summary.quant_overview %}
+- {{ item }}
+{% endfor %}
 
 ### 主要机会
 {% for item in summary.top_opportunities %}
@@ -104,9 +108,37 @@
 - 新闻经过 URL 和标题去重后再进行事件抽取。
 - 分析只允许引用本次运行中的 evidence ID。
 - 置信度描述当前证据覆盖，不代表事件真实性或投资确定性。
-- Live 模式可能受 RSS 可用性、发布时间和模型服务影响。
+{% if is_live %}
+- 当前 live 模式主要依赖 `config/sources.yaml` 中配置的 RSS 源。
+- 来源覆盖偏向官方博客和研究机构，不能代表全市场新闻。
+- 当前未接入 Tavily/search，事件覆盖面仍然有限。
+- 结果适合作为研究辅助，不适合作为实时新闻监控或交易决策依据。
+{% else %}
+- Replay 使用 synthetic 数据，只用于演示工作流和报告结构。
+{% endif %}
 
-## 六、来源索引
+## 六、来源覆盖统计
+
+| 指标 | 数量 |
+|---|---:|
+| 总抓取来源数 | {{ metrics.get("rss_source_total", 0) }} |
+| 成功来源数 | {{ metrics.get("rss_source_success", 0) }} |
+| 失败来源数 | {{ metrics.get("rss_source_failed", 0) }} |
+| 抓取文章数 | {{ metrics.get("collected_count", sources|length) }} |
+| 去重后文章数 | {{ metrics.get("deduplicated_count", sources|length) }} |
+| 入选事件数 | {{ metrics.get("event_count", events|length) }} |
+
+{% if metrics.get("rss_group_coverage") %}
+### RSS 分组覆盖
+
+| 分组 | 配置源 | 成功 | 失败 | 文章 |
+|---|---:|---:|---:|---:|
+{% for group, coverage in metrics.get("rss_group_coverage", {}).items() %}
+| {{ group }} | {{ coverage.configured }} | {{ coverage.successful }} | {{ coverage.failed }} | {{ coverage.articles }} |
+{% endfor %}
+{% endif %}
+
+## 七、来源索引
 
 {% for source in sources %}
 - **[{{ source.evidence_id }}] {{ source.title }}** — {{ source.source_name }}, {{ source.published_at.isoformat() }} — {{ source.url }}

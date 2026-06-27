@@ -24,6 +24,7 @@ class ReportWriterNode:
             state["events"],
             state["analyses"],
             state.get("warnings", []),
+            state.get("metrics", {}),
         )
 
         markdown_path = run_dir / "report.md"
@@ -54,4 +55,3 @@ class ReportWriterNode:
         )
         self.observer("report", {"status": "completed"})
         return {"artifacts": artifacts}
-

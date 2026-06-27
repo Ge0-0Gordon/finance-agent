@@ -12,3 +12,7 @@ pytest-cache-files-*/
 .ruff_cache/
 outputs/*
 !outputs/.gitkeep
+!outputs/sample_live/
+!outputs/sample_live/**
+!outputs/sample_replay_llm/
+!outputs/sample_replay_llm/**

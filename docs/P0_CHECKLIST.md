@@ -109,3 +109,14 @@
 - [x] synthetic confidence 封顶 medium
 - [x] 外部常识/待验证假设强制标注
 - [x] 基于 EventAnalysis 的轻量总体摘要
+
+## P0.6 / P1 RSS
+
+- [x] 总体影响改为 3–5 条自然结论
+- [x] 量化投资交易化措辞收紧
+- [x] live 方法与限制声明 RSS-only
+- [x] RSS 分组及旧格式兼容
+- [x] 扩展已验证 RSS 来源
+- [x] 来源覆盖统计
+- [x] 单 RSS 失败隔离
+- [x] Tavily 保留为 P1.5

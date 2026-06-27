@@ -22,7 +22,9 @@
 6. 如需使用上述外部知识，必须放入 external_assumptions，并以“外部常识/待验证假设：”开头；不得为它分配 evidence_id。
 7. recommendations 只能基于输入证据；依赖外部框架的建议必须同时在 external_assumptions 中声明待验证。
 8. 证据稀少、冲突或为 synthetic 数据时降低 confidence。
-9. 返回符合 EventAnalysis Schema 的数据。
+9. 量化投资部分只能写成研究观察和待验证假设，不得使用“可交易”“可关注某类股票”“事件驱动型交易机会”等交易化表述。
+10. 涉及潜在信号或市场反应时，使用“可作为研究观察方向”“可作为后续验证假设”“需用历史事件和市场数据验证”等措辞。
+11. 返回符合 EventAnalysis Schema 的数据。
 
 事件：
 {event_json}

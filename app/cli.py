@@ -56,6 +56,26 @@ def run(
 
     typer.echo(f"Run ID: {result.run_id}")
     typer.echo(f"Sources: {len(result.sources)}; Events: {len(result.events)}")
+    typer.echo(
+        "RSS sources: "
+        f"total={result.metrics.get('rss_source_total', 0)}, "
+        f"success={result.metrics.get('rss_source_success', 0)}, "
+        f"failed={result.metrics.get('rss_source_failed', 0)}"
+    )
+    typer.echo(
+        "Articles: "
+        f"collected={result.metrics.get('collected_count', 0)}, "
+        f"deduplicated={result.metrics.get('deduplicated_count', 0)}"
+    )
+    group_coverage = result.metrics.get("rss_group_coverage", {})
+    if group_coverage:
+        typer.echo(
+            "RSS groups: "
+            + ", ".join(
+                f"{group}={values['successful']}/{values['configured']}"
+                for group, values in group_coverage.items()
+            )
+        )
     typer.echo(f"Markdown: {result.artifacts.markdown_report_path}")
     typer.echo(f"HTML: {result.artifacts.html_report_path}")
     typer.echo(f"JSON: {result.artifacts.result_json_path}")

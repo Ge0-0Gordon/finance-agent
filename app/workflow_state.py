@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import Any, TypedDict
 
 from app.models import (
     EventAnalysis,
@@ -20,5 +20,4 @@ class WorkflowState(TypedDict, total=False):
     analyses: list[EventAnalysis]
     artifacts: ReportArtifacts
     warnings: list[str]
-    metrics: dict[str, int]
-
+    metrics: dict[str, Any]

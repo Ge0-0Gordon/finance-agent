@@ -18,8 +18,14 @@ class CollectAndDeduplicateNode:
         self.observer("collect", {"status": "running"})
         if request.mode in {RunMode.REPLAY, RunMode.REPLAY_LLM}:
             raw_documents, warnings = load_replay_documents(self.settings.replay_file, request)
+            source_metrics = {
+                "rss_source_total": 0,
+                "rss_source_success": 0,
+                "rss_source_failed": 0,
+                "rss_group_coverage": {},
+            }
         else:
-            raw_documents, warnings = collect_rss_documents(
+            raw_documents, warnings, source_metrics = collect_rss_documents(
                 self.settings.load_sources(),
                 request,
             )
@@ -27,6 +33,7 @@ class CollectAndDeduplicateNode:
         if not documents:
             raise ValueError("No source documents remained after collection and deduplication")
         metrics = {
+            **source_metrics,
             "collected_count": len(raw_documents),
             "deduplicated_count": len(documents),
         }

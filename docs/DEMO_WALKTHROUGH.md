@@ -64,6 +64,8 @@ python -m app.cli run --topic "AI Agent 与金融科技" --since 7d --mode live
 
 从 `config/sources.yaml` 获取 RSS，再调用 OpenAI-compatible LLM。需要有效 `.env`、API Key 和网络。
 
+当前 live 为 RSS-only。Tavily/search 尚未实现，属于后续 P1.5 增强；不要仅修改配置开关来假装启用搜索。
+
 ### Streamlit
 
 ```powershell
@@ -94,4 +96,3 @@ Get-ChildItem outputs -Directory | Sort-Object LastWriteTime -Descending | Selec
 ```
 
 Replay 报告会明确标记为合成数据，不得把其中事件当作真实新闻。
-

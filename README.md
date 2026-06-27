@@ -57,10 +57,44 @@ LLM_TEMPERATURE=0
 
 ## Replay、Replay LLM 与 Live
 
-- `replay`：合成数据 + 确定性分析；完全离线，不需要 API Key。
-- `replay_llm`：合成数据 + 真实 LLM 事件抽取/分析；需要 API Key。
-- `live`：RSS 数据 + 真实 LLM 事件抽取/分析；需要 API Key 和网络。
+- `replay`：合成数据 + 确定性分析；完全离线、最稳定，不需要 API Key。
+- `replay_llm`：固定合成数据 + 真实 LLM 事件抽取/分析；需要 API Key。
+- `live`：真实 RSS + 真实 LLM 事件抽取/分析；需要 API Key 和网络。
 - 报告默认输出简体中文，产品名、模型名和机构名等英文专有名词保持原文。
+
+当前 live 是 **RSS-only**。RSS 按 `official_ai`、`research`、`china_ai`、`finance_tech` 分组配置，单个来源失败只会生成 warning，不会中止其余来源。
+
+### 当前能力边界
+
+- **P0/P0.6 已完成：** 四节点 workflow、三种运行模式、结构化分析、证据引用、中文 Markdown/HTML 报告、研究化量化措辞和报告限制说明。
+- **P1.1 已完成：** 分组 RSS、旧配置兼容、来源失败隔离、来源/文章/事件覆盖统计。
+- **P1.5 未实现：** Tavily/search collector。当前配置中的 `search.enabled: false` 只是未来扩展占位。
+- 不包含 FastAPI、PDF、MCP、复杂 Dashboard 或数据库。
+
+当前已配置并验证可解析的来源包括：
+
+- OpenAI News、Google AI Blog、Google DeepMind Blog
+- NVIDIA Blog、AWS Machine Learning Blog、Meta Engineering
+- MIT News AI、Hugging Face Blog、Microsoft Research
+- 量子位、36氪
+
+### Future sources to add
+
+以下来源尚未确认稳定公开 RSS，因此当前不写入不可用 URL：
+
+- Anthropic Blog / News
+- Meta AI Blog、Microsoft AI Blog
+- 阿里云、通义、百炼官方新闻
+- 机器之心
+- 财联社科技 / AI
+- 证券时报科技 / AI
+
+### Tavily/search（P1.5，可选）
+
+- 当前版本尚未实现 search collector。
+- Tavily 可作为后续 RSS 补充，需要额外的 `TAVILY_API_KEY`。
+- 真正启用 Tavily 必须实现搜索采集、时间过滤、来源标准化和失败处理；不能只把 `search.enabled` 改成 `true`。
+- 未接入 search 时，live 的事件覆盖面受 RSS 来源限制。
 
 ## CLI
 
@@ -74,6 +108,28 @@ streamlit run app/ui/streamlit_app.py
 ```
 
 报告输出到 `outputs/<run_id>/`。
+
+## Final Demo Path
+
+```powershell
+python -m app.cli run --topic "AI Agent 与金融科技" --since 7d --mode replay
+python -m app.cli run --topic "AI Agent 与金融科技" --since 7d --mode replay_llm
+python -m app.cli run --topic "AI Agent 与金融科技" --since 7d --mode live
+streamlit run app/ui/streamlit_app.py
+```
+
+稳定示例产物：
+
+- `outputs/sample_live/`
+- `outputs/sample_replay_llm/`
+
+## Known Limitations
+
+- live 当前是 RSS-only。
+- 来源偏官方博客、技术博客和研究机构。
+- 尚未接入 Tavily/search。
+- 当前来源不能代表全市场新闻覆盖。
+- 报告仅用于研究辅助，不构成投资建议或交易决策依据。
 
 ## Streamlit
 

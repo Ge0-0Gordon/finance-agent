@@ -104,8 +104,8 @@ class EventAnalysis(BaseModel):
 
 class ReportSummary(BaseModel):
     executive_summary: str
-    securities_overview: str
-    quant_overview: str
+    securities_overview: list[str]
+    quant_overview: list[str]
     top_opportunities: list[str] = Field(default_factory=list)
     top_risks: list[str] = Field(default_factory=list)
     priority_recommendations: list[str] = Field(default_factory=list)
@@ -125,4 +125,4 @@ class ResearchRunResult(BaseModel):
     analyses: list[EventAnalysis]
     artifacts: ReportArtifacts
     warnings: list[str] = Field(default_factory=list)
-    metrics: dict[str, int] = Field(default_factory=dict)
+    metrics: dict[str, Any] = Field(default_factory=dict)
